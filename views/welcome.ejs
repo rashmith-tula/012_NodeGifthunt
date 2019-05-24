@@ -1,0 +1,103 @@
+<style type="text/css"> 
+  body {
+   font-size: 12px;      
+   padding: 8px 8px 8px 0;
+   margin: 30px 10px 30px 5px;
+   background: linear-gradient(#9EC7D8, #ffffff);
+  }
+  
+  .form {
+	border-top: 20px solid rgb(66,124,172);
+	border-bottom: 3px solid #427CAC;
+    border-left: 3px solid #427CAC;
+    border-right: 3px solid #427CAC;
+    margin: 5px auto;
+	width: 90%;
+	border-radius: 20px;
+	box-shadow: 0px 0px 15px 3px rgba(148,148,148,1);
+	min-width: 600px;
+	-ms-min-width: 600px;
+   }
+   
+   form {
+     width: 50%;
+     margin: 10px auto;
+   }
+   
+  h1 {
+	text-align: left;
+	background-color: #427CAC;
+	min-width: 280px;
+	max-width: 280px;
+	margin: 0 0;
+	border-radius: 0px 0px 5px 0px;
+	font-size: 25px;
+	font-weight: bold;
+	text-align: center;
+   }
+   
+   label, input {
+     font-size: 20px;  
+     margin: 0 auto;
+     padding: 10px;  
+   }
+   
+   input[type="submit"] {
+     margin: 0 auto;
+   }
+   
+   .resend {
+     font-size: 20px; 
+     text-align: justify;
+     margin: 5px;
+     padding: 5px;  
+   }
+ </style>
+
+<div class="form">
+ <h1>Gift Hunt</h1>
+ <form action="/home" method="GET">
+   <% if(required == 1) { %>
+    <label for="name">Full Name </label> 
+    <br/> 
+    <input type="text" name="name" id="name" required> 
+    <br/> 
+    <br/>
+    <label for="phone">Main Phone# </label>   
+    <br/>
+    <input type="number" name="phone" id="phone" required> 
+    <br/>
+    <br/>
+    <label for="keylen">No: of steps </label>   
+    <br/>
+    <input type="number" name="keylen" id="keylen" min="1" max="5" value="3" required> 
+    <br/>
+    <br/>
+   <% } else {%>
+    <label for="keylen">No: of steps </label>   
+    <br/>
+    <input type="number" name="keylen" id="keylen" min="1" max="5" value=<%= keyLen %> readonly> 
+    <br/>
+    <br/>
+   <% } %>
+   <% if(keyLen !== 0) { %>
+     <% for(var i = 1; i <= keyLen; i++) { %>
+      <% var pLabel = 'Phone# ' + i; %>
+      <% var pId = 'phone' + i; %>
+      <label for="phone"> <%= pLabel %> </label>   
+      <br/>
+      <% if(pNums.length == 0) { %>
+       <input type="number" name=<%= pId %> id=<%= pId %> required> 
+      <% } else { %>
+       <input type="number" name=<%= pId %> id=<%= pId %> value=<%= pNums[i] %> required> 
+      <% } %>
+      <br/>
+      <br/>
+     <% } %>
+   <% } %>
+   <input type="submit" name="submit" value="Submit">
+   <% if(message !== " ") { %>
+    <p class="resend" style="color: red; font-size: bold"> <%= message %> </p>
+   <% } %>
+  </form>
+ </div>
